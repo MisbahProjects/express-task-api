@@ -1,0 +1,263 @@
+{
+  "info": {
+    "name": "Task Management System - Full RBAC (URL FIXED)",
+    "_postman_id": "task-mgmt-full-rbac-fixed",
+    "description": "Full Postman collection with URL string fix. No empty URL issue.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Admin Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"admin@example.com\",\"password\":\"Admin@123\"}"
+            }
+          }
+        },
+        {
+          "name": "Manager Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"manager@example.com\",\"password\":\"Manager@123\"}"
+            }
+          }
+        },
+        {
+          "name": "User Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"user@example.com\",\"password\":\"User@123\"}"
+            }
+          }
+        },
+        {
+          "name": "Register User (Public)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"New User\",\"email\":\"newuser@example.com\",\"password\":\"User@123\",\"role\":\"User\"}"
+            }
+          }
+        },
+        {
+          "name": "Verify Account OTP",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/verify-account",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"newuser@example.com\",\"otp\":\"123456\"}"
+            }
+          }
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/forgot-password",
+            "body": { "mode": "raw", "raw": "{\"email\":\"user@example.com\"}" }
+          }
+        },
+        {
+          "name": "Verify Reset OTP",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/verify-reset-otp",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"user@example.com\",\"otp\":\"654321\"}"
+            }
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/reset-password",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"user@example.com\",\"otp\":\"654321\",\"password\":\"NewUser@123\"}"
+            }
+          }
+        },
+        {
+          "name": "Resend Account OTP",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/resend-account-otp",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"newuser@example.com\"}"
+            }
+          }
+        },
+        {
+          "name": "Resend Reset OTP",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/resend-reset-otp",
+            "body": { "mode": "raw", "raw": "{\"email\":\"user@example.com\"}" }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/refresh",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"refreshToken\":\"{{refreshToken}}\"}"
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/auth/logout"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Users Management",
+      "item": [
+        {
+          "name": "List Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": "{{baseUrl}}/users"
+          }
+        },
+        {
+          "name": "Create Manager",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/users",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Manager 1\",\"email\":\"manager@example.com\",\"password\":\"Manager@123\",\"role\":\"Manager\"}"
+            }
+          }
+        },
+        {
+          "name": "Get Single User",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": "{{baseUrl}}/users/{{userId}}"
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": "{{baseUrl}}/users/{{userId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tasks Management",
+      "item": [
+        {
+          "name": "List Tasks",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/tasks"
+          }
+        },
+        {
+          "name": "Get Single Task",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/tasks/{{taskId}}"
+          }
+        },
+        {
+          "name": "Create Task (Admin/Manager)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/tasks",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Admin Task\",\"description\":\"Task assigned by Admin\",\"assignedTo\":[\"{{managerId}}\"],\"dueDate\":\"2025-12-20\"}"
+            }
+          }
+        },
+        {
+          "name": "Update Task",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/tasks/{{taskId}}",
+            "body": { "mode": "raw", "raw": "{\"status\":\"In Progress\"}" }
+          }
+        },
+        {
+          "name": "Delete Task (Admin Only)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": "{{baseUrl}}/tasks/{{taskId}}"
+          }
+        }
+      ]
+    }
+  ]
+}
